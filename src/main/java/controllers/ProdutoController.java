@@ -11,6 +11,50 @@ public class ProdutoController {
 
     private Scanner scanner = new Scanner(System.in);
 
+
+    public void gerenciarProdutos() throws Exception {
+
+        System.out.println("GERENCIAMNETO DE PRODUTOS:\n");
+        System.out.println("(1) CADASTRAR PRODUTO");
+        System.out.println("(2) ATUALIZAR PRODUTO");
+        System.out.println("(3) EXCLUIR PRODUTO");
+        System.out.println("(4) CONSULTAR PRODUTOS");
+
+        System.out.print("\nINFORME A OPÇÃO DESEJADA: ");
+        var opcao = Integer.parseInt(scanner.nextLine());
+
+        switch (opcao) {
+            case 1:
+                cadastrarProduto();
+                break;
+            case 2:
+                atualizarProduto();
+                break;
+            case 3:
+                excluirProduto();
+                break;
+            case 4:
+                consultarProdutos();
+                break;
+            default:
+                System.out.println("\nOPÇÃO INVÁLIDA!");
+                break;
+
+        }
+        System.out.print("\nDESEJA REALIZAR OUTRA OPERAÇÃO? (S,N): ");
+        var continuar = scanner.nextLine();
+
+        if(continuar.equalsIgnoreCase("S")) {
+            gerenciarProdutos();
+        }
+        else  {
+            System.out.println("\nFIM DO PROGRAMA!");
+        }
+
+    }
+
+
+
     public void cadastrarProduto() throws Exception {
 
         System.out.println("\nCADASTRO DE PRODUTOS:\n");
@@ -58,7 +102,31 @@ public class ProdutoController {
             System.out.println("\nNENHUM PRODUTO FOI ATUALIZADO. VERIFIQUE O ID INFORMADO.");
         }
 
+    }
+
+    public void excluirProduto() throws Exception {
+
+        System.out.println("\nEXCLUSÃO DE PRODUTOS:\n");
+
+        System.out.print("ID DO PRODUTO............: ");
+        var id = Integer.parseInt(scanner.nextLine());
+
+        if(produtoRepository.excluir(id)) {
+            System.out.println("\nPRODUTO EXCLUIDO COM SUCESSO!");
+        } else {
+            System.out.println("\nNENHUM PRODUTO FOI EXCLUIDO VERIFIQUE O ID INFORMADO.");
+
+        }
 
     }
+
+    private void consultarProdutos() throws Exception {
+
+        System.out.println("\nCONSULTA DE PRODUTOS:\n");
+
+        produtoRepository.consultar();
+
+    }
+
 
 }

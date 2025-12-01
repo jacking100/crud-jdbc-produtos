@@ -44,4 +44,39 @@ public class ProdutoRepository {
 
     }
 
+    public boolean excluir(Integer id) throws Exception {
+
+        var connection = connectionFactory.getConnection();
+
+        var statement = connection.prepareStatement
+                ("DELETE FROM produtos WHERE id=?");
+        statement.setInt(1, id);
+        var rowsAffected = statement.executeUpdate();
+
+        connection.close();
+
+        return rowsAffected == 1;
+    }
+
+    public void consultar() throws Exception {
+
+        var connection = connectionFactory.getConnection();
+
+        var statement = connection.prepareStatement
+                ("SELECT * FROM produtos ORDER BY id");
+
+        var result = statement.executeQuery();
+
+        while (result.next()) {
+            System.out.println("ID..........: " + result.getInt("id"));
+            System.out.println("NOME..........: " + result.getString("nome"));
+            System.out.println("PREÇO..........: " + result.getDouble("preco"));
+            System.out.println("QUANTIDADE..........: " + result.getInt("quantidade"));
+
+        }
+
+        connection.close();
+
+    }
+
 }

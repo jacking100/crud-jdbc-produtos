@@ -9,7 +9,7 @@ public class Main {
         try {
 
             var produtoController = new ProdutoController();
-            produtoController.atualizarProduto();
+            produtoController.gerenciarProdutos();
 
         }
         catch(Exception e) {
